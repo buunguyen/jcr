@@ -1,4 +1,4 @@
 yajc
 ====
 
-Netflix-like jQuery Carousel
+Netflix-like jQuery Carousel.

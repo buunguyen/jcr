@@ -17,5 +17,5 @@
  * limitations under the License.
  * ========================================================== */
 interface JQuery {
-	yajc(...args: any[]): JQuery;
+    yajc(...args: any[]): JQuery;
 }

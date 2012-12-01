@@ -1,66 +1,245 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Yajc by buunguyen</title>
+    <head>
+        <meta charset='utf-8'>
+        <title>yajc.js by buunguyen</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Yajc</h1>
-        <p>Netflix-like jQuery Carousel</p>
+        <!-- Required for yajc.js -->
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+        <script src='lib/yajc.js'></script>
+        <link rel='stylesheet' href='lib/yajc.css'>
 
-        <p class="view"><a href="https://github.com/buunguyen/yajc">View the Project on GitHub <small>buunguyen/yajc</small></a></p>
+        <!-- Styles and JS used for this page layout, not needed by yajc -->
+        <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap-responsive.min.css'>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+        <link rel='stylesheet' href='docs/styles.css'>
+        <link rel='stylesheet' href='docs/pygment_trac.css'>
+        <!--[if lt IE 9]>
+            <script src='//html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+        <![endif]-->
+
+        <!-- Application styles and JS -->
+        <style>
+            .carousel { 
+                padding: 5px; 
+                background-color: black; 
+                border-radius: 5px;
+            } 
+
+            .carousel li { 
+                margin: 0 2px; 
+                border: 1px solid #ccc; 
+                opacity: .7; 
+                width: 110px; 
+                height: 68px; 
+                transition: opacity .5s; 
+                -moz-transition: opacity .5s; 
+                -webkit-transition: opacity .5s; 
+            } 
+
+            .carousel li:hover, .carousel li.selected { 
+                opacity: 1; 
+                border: 1px solid white; 
+            } 
+
+            .carousel li img {
+                width: 100%; 
+                height: 100%; 
+            }
+        </style>
+        <script>$(prettyPrint);</script>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='span9'>
+                <a href='https://github.com/buunguyen/yajc'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png' alt='Fork me on GitHub'></a>
+                <section>
+                    <h3>Why yajc.js</h3>
+                    <p>
+                        Because other carousels, although several being very excellent, don't do
+                        exactly what I need and customizing them is so painful. After a couple of days trying to integrate 5 or 6 different carousels into a project I worked on without fruitful result, I gave up and coded <span class="label label-important">yajc.js</span> in a few hours. Who says NIH is never a good thing?
+                    </p>
+                    <p>Feature highlights</p>
+                    <ul> 
+                        <li>Single-minded: a minimally programmable horizontal carousel, that's it</code>
+                        <li>Responsive to however-styled containing HTML element and browser resize</li>
+                        <li>Small, less than 5KB of minified JavaScript and CSS</li>
+                        <li>Tested on Chrome, Firefox, Safari 5/6, Internet Explorer 9/10</li>
+                    </ul>
+
+                    <h3>Show me</h3>
+                    <p>
+                        <div id='c1' class='carousel'></div>
+                        <script>
+                            var loadImage = function($el) {
+                                $.getJSON('images/images.json', function(images) {
+                                    (function load(index) {
+                                        var img = images[index % images.length];
+                                        $el.yajc('add', '<li><img src="' + img.url + '"></li>', function() {
+                                            if (++index < 30) load(index);
+                                        })
+                                    })(0);
+                                });
+                            };
+
+                            $(function() {
+                                $carousel = $('#c1').yajc() 
+                                    .yajc('wings') 
+                                    .yajc('selectOn', 'click');
+                                loadImage($carousel);
+                            });
+                        </script>
+                    </p>
+                    <h5>HTML</h5>
+                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c1&#39;&gt;&lt;/div&gt;</pre>
+                    <h5>JavaScript</h5>
+                    <pre class='prettyprint linenums lang-javascript'>$(function() {
+    $carousel = $(&#39;#c1&#39;).yajc() 
+        .yajc(&#39;wings&#39;) 
+        .yajc(&#39;selectOn&#39;, &#39;click&#39;);
+
+    $.getJSON(&#39;images/images.json&#39;, function(images) {
+        (function load(index) {
+            var img = images[index % images.length];
+            $carousel.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;, function() {
+                if (++index &lt; 30) load(index);
+            })
+        })(0);
+    });
+});</pre>
 
 
-        <ul>
-          <li><a href="https://github.com/buunguyen/yajc/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/buunguyen/yajc/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/buunguyen/yajc">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>Welcome to GitHub Pages.</h3>
+                    <h3>Tell me more</h3>
+                    <h4>Core</h4>
+                    <p><span class="label label-important">yajc.js</span> has a very small core, exposing 6 methods:</p>
+                    <ul class='methods'>
+                        <li><code>ctor ([options]):</code> invoke by calling <code>$obj.yajc({...})</code>. Options include:
+                            <ul>
+                                <li><code>addDuration:</code> the duration in ms to animate element addition</li>
+                                <li><code>removeDuration:</code> the duration in ms to animate element removal</li>
+                                <li><code>msPer100px:</code> the duration in ms to animate every 100 pixels, used to control sliding speed</li>
+                                <li><code>showEasing:</code> the name of the easing function used in <code>show()</code></li>
+                                <li><code>slideEasing:</code> the name of the easing function used in <code>slide()</code></li>   
+                                <li>You can set global defaults by overriding properties in <code>$.fn.yajc.defaults</code></li>                              
+                            </ul>
+                        </li>                      
+                        <li><code>add (target [, position] [, callback])</code>
+                            <ul>
+                                <li><code>target:</code> the jQuery object or DOM element to be added</li>
+                                <li><code>index (optional):</code> the index to add to, default is the end of the list</li>
+                                <li><code>callback (optional):</code> the callback to be invoked after adding</li>
+                            </ul>
+                        </li>
+                        <li><code>remove (target [, callback])</code>
+                            <ul>
+                                <li><code>target:</code> the jQuery object, DOM element or index to be removed</li>
+                                <li><code>callback (optional):</code> the callback to be invoked after removing</li>
+                            </ul>                          
+                        </li>
+                        <li><code>show (target [, callback])</code>
+                            <ul>
+                                <li><code>target:</code> the jQuery object, DOM element or index to be shown</li>
+                                <li><code>callback (optional):</code> the callback to be invoked after showing</li>
+                            </ul>   
+                        </li>
+                        <li><code>slide (to [, callback])</code>
+                            <ul>
+                                <li><code>to:</code> the position or offset (if prefixed with <code>+=</code> or <code>-=</code>) to slide to</li>
+                                <li><code>callback (optional):</code> the callback to be invoked after sliding</li>
+                            </ul>   
+                        </li>
+                        <li><code>refresh ([callback])</code>: refresh the carousel if there is any external change, e.g. add elements without using the <code>add</code> method.</li>
+                    </ul>
+                    <p>You can write JavaScript code invoking these methods to control the behaviors of the carousel. You can also do it by coding plugins.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+                    <h4>Plugins</h4>
+                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 3 built-in plugins: <code>wings</code>, <code>selectOn</code> and <code>hoverSlide</code>. You have seen <code>wings</code> and <code>selectOn</code> in the first example. Example using <code>hoverSlide</code> is as follows.</p>
+                    <p>
+                        <div id='c2' class='carousel'></div>
+                        <script>
+                            $(function() {
+                                $carousel = $('#c2').yajc().yajc('hoverSlide');
+                                loadImage($carousel);
+                            });
+                        </script>
+                    </p>
+                    <h5>HTML</h5>
+                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c2&#39;&gt;&lt;/div&gt;</pre>
+                    <h5>JavaScript</h5>
+                    <pre class='prettyprint linenums lang-javascript'>$(function() {
+    $carousel = $(&#39;#c2&#39;).yajc().yajc(&#39;hoverSlide&#39;);
+    loadImage($carousel);
+});</pre>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+                    <h3>More examples</h3> 
+                    <h4>Use options</h4>
+                    <p>
+                        <div id='c3' class='carousel'></div>
+                        <script>
+                            $(function() {
+                                $carousel = $('#c3').yajc({
+                                    addDuration: 100,
+                                    msPer100px: 300
+                                }).yajc('selectOn', 'click');
+                                loadImage($carousel);
+                            });
+                        </script>
+                    </p>
+                    <h5>HTML</h5>
+                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c3&#39;&gt;&lt;/div&gt;</pre>
+                    <h5>JavaScript</h5>
+                    <pre class='prettyprint linenums lang-javascript'>$(function() {
+    $carousel = $(&#39;#c3&#39;).yajc({
+        addDuration: 100,
+        msPer100px: 300
+    }).yajc(&#39;selectOn&#39;, &#39;click&#39;);
+    loadImage($carousel);
+});</pre>
 
-<h3>Designer Templates</h3>
+                    <h4>Delete by double-clicking</h4>
+                    <p>
+                        <div id='c4' class='carousel'></div>
+                        <script>
+                            $(function() {
+                                $carousel = $('#c4').yajc({
+                                    removeDuration: 300
+                                }).yajc('wings', 'circle');
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+                                $carousel.find('li').live('dblclick', function() {
+                                    $carousel.yajc('remove', this);
+                                });
 
-<h3>Rather Drive Stick?</h3>
+                                loadImage($carousel);
+                            });
+                        </script>
+                    </p>         
+                    <h5>HTML</h5>
+                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c4&#39;&gt;&lt;/div&gt;</pre>
+                    <h5>JavaScript</h5>
+                    <pre class='prettyprint linenums lang-javascript'>$(function() {
+    $carousel = $(&#39;#c4&#39;).yajc({
+        removeDuration: 300
+    }).yajc(&#39;wings&#39;, &#39;circle&#39;);
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/buunguyen">buunguyen</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+    $carousel.find(&#39;li&#39;).live(&#39;dblclick&#39;, function() {
+        $carousel.yajc(&#39;remove&#39;, this);
+    });
     
-  </body>
+    loadImage($carousel);
+});</pre>    
+
+                </section>
+                <footer>
+                    <p>
+                        This project is maintained by
+                        <a href='https://github.com/buunguyen'>buunguyen</a>
+                    </p>
+                </footer>
+            </div>
+        </div>
+        <script src="docs/scale.fix.js"></script>
+    </body>
 </html>

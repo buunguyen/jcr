@@ -1,9 +1,9 @@
 /* Site */
-.methods ul li {
+.methods li {
   margin-bottom: 20px;
 }
 
-.methods ul li li {
+.methods li li {
   margin: 5px 15px;
 }
 

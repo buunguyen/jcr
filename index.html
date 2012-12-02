@@ -20,42 +20,35 @@
             <script src='//html5shiv.googlecode.com/svn/trunk/html5.js'></script>
         <![endif]-->
 
-        <!-- Application styles and JS -->
-        <style>
-            .carousel { 
-                padding: 5px; 
-                background-color: black; 
-                border-radius: 5px;
-            } 
-
-            .carousel li { 
-                margin: 0 2px; 
-                border: 1px solid #ccc; 
-                opacity: .7; 
-                width: 110px; 
-                height: 68px; 
-                transition: opacity .5s; 
-                -moz-transition: opacity .5s; 
-                -webkit-transition: opacity .5s; 
-            } 
-
-            .carousel li:hover, .carousel li.selected { 
-                opacity: 1; 
-                border: 1px solid white; 
-            } 
-
-            .carousel li img {
-                width: 100%; 
-                height: 100%; 
+        <script>
+            function isTouchDevice() {
+                return ('ontouchstart' in window) || 
+                       (window.DocumentTouch && document instanceof DocumentTouch);
             }
-        </style>
-        <script>$(prettyPrint);</script>
+
+            function rand(start, end) {
+                return Math.round(start + (end-start) * Math.random());
+            }
+
+            $(function() {
+                prettyPrint();
+                $('.nav-tabs a').click(function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+            });
+        </script>
     </head>
     <body>
         <div class='container'>
-            <div class='span9'>
+            <div class='span11'>
                 <a href='https://github.com/buunguyen/yajc'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png' alt='Fork me on GitHub'></a>
                 <section>
+
+
+<!-- 
+* Why yajc.js
+============================================================-->
                     <h3>Why yajc.js</h3>
                     <p>
                         Because other carousels, although several being very excellent, don't do
@@ -64,59 +57,121 @@
                     <p>Feature highlights</p>
                     <ul> 
                         <li>Single-minded: a minimally programmable horizontal carousel, that's it</code>
-                        <li>Responsive to however-styled containing HTML element and browser resize</li>
+                        <li>Responsive to however-styled containing HTML element, child elements and browser resize</li>
+                        <li>CSS-driven UI, easy to customize by overriding default styles</li>
                         <li>Small, just over 2KB of gzipped JavaScript and CSS</li>
                         <li>Tested on Chrome, Firefox, Safari 5/6/Mobile, Internet Explorer 9/10</li>
                     </ul>
                     <p><span class="label label-important">yajc.js</span> currently does not support guestures like flick, wipe etc. on touch devices. Also, some examples below don't work when hovering or double-clicking are used.</p>
 
+
+<!-- 
+* Show me
+============================================================-->
                     <h3>Show me</h3>
+
+
+<!-- 
+* Example 1
+============================================================-->
+                    <p>Below is a simple carousel activated with default options and two built-in plugins (more on plugins later).
                     <p>
                         <div id='c1' class='carousel'></div>
-                        <script>
-                            var loadImage = function($el) {
-                                $.getJSON('images/images.json', function(images) {
-                                    (function load(index) {
-                                        var img = images[index % images.length];
-                                        $el.yajc('add', '<li><img src="' + img.url + '"></li>', function() {
-                                            if (++index < 30) load(index);
-                                        })
-                                    })(0);
-                                });
-                            };
+                        <style>
+                            .carousel { 
+                                padding: 5px; 
+                                background-color: black; 
+                                border-radius: 5px;
+                            } 
 
+                            .carousel li { 
+                                margin: 0 2px; 
+                                border: 1px solid #ccc; 
+                                opacity: .7; 
+                                transition: opacity .5s; 
+                                -moz-transition: opacity .5s; 
+                                -webkit-transition: opacity .5s; 
+                            } 
+
+                            .carousel li:hover, .carousel li.selected { 
+                                opacity: 1; 
+                                border: 1px solid white; 
+                            } 
+
+                            .carousel li img {
+                                width: 120px; 
+                                height: 70px; 
+                            }
+                        </style>
+                        <script>
                             $(function() {
-                                $carousel = $('#c1').yajc() 
+                                var $c = $('#c1').yajc() 
                                     .yajc('wings') 
-                                    .yajc('clickSelect');
-                                loadImage($carousel);
+                                    .yajc('selectOn', isTouchDevice() ? 'touchstart' : 'click');
+
+                                $.getJSON('images/images.json', function(images) {
+                                    $.each(images, function(idx, img) {
+                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                    });
+                                });
                             });
                         </script>
                     </p>
-                    <h5>HTML</h5>
-                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c1&#39;&gt;&lt;/div&gt;</pre>
-                    <h5>JavaScript</h5>
-                    <pre class='prettyprint linenums lang-javascript'>$(function() {
-    $carousel = $(&#39;#c1&#39;).yajc() 
+
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#js1">JavaScript</a></li>
+                      <li><a href="#html1">HTML</a></li>
+                      <li><a href="#css1">CSS</a></li>
+                    </ul>
+                     
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="js1"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c1&#39;).yajc() 
         .yajc(&#39;wings&#39;) 
-        .yajc(&#39;clickSelect&#39;);
+        .yajc(&#39;selectOn&#39;, isTouchDevice() ? &#39;touchstart&#39; : &#39;click&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
-        (function load(index) {
-            var img = images[index % images.length];
-            $carousel.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;, function() {
-                if (++index &lt; 30) load(index);
-            })
-        })(0);
+        $.each(images, function(idx, img) {
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+        });
     });
-});</pre>
+});</pre></div>
+                      <div class="tab-pane" id="html1"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c1&#39; class=&#39;carousel&#39;&gt;&lt;/div&gt;</pre></div>
+                      <div class="tab-pane" id="css1"><pre class='prettyprint linenums lang-css'>.carousel { 
+    padding: 5px; 
+    background-color: black; 
+    border-radius: 5px;
+} 
+
+.carousel li { 
+    margin: 0 2px; 
+    border: 1px solid #ccc; 
+    opacity: .7; 
+    transition: opacity .5s; 
+    -moz-transition: opacity .5s; 
+    -webkit-transition: opacity .5s; 
+} 
+
+.carousel li:hover, .carousel li.selected { 
+    opacity: 1; 
+    border: 1px solid white; 
+} 
+
+.carousel li img {
+    width: 120px; 
+    height: 70px; 
+}</pre></div>
+                    </div>
 
 
+<!-- 
+* Tell me more
+============================================================-->
                     <h3>Tell me more</h3>
                     <h4>Core</h4>
-                    <p><span class="label label-important">yajc.js</span> has a very small core, exposing 6 methods:</p>
+                    <p><span class="label label-important">yajc.js</span> has a very small core, exposing 1 initializer and 6 methods:</p>
                     <ul class='methods'>
-                        <li><code>ctor ([options]):</code> invoke by calling <code>$obj.yajc({...})</code>. Options include:
+                        <li><code>init ([options]):</code> invoke by calling <code>$obj.yajc({...})</code>. Options include:
                             <ul>
                                 <li><code>addDuration:</code> the duration in ms to animate element addition</li>
                                 <li><code>removeDuration:</code> the duration in ms to animate element removal</li>
@@ -151,86 +206,168 @@
                                 <li><code>callback (optional):</code> the callback to be invoked after sliding</li>
                             </ul>   
                         </li>
-                        <li><code>refresh ([callback])</code>: refresh the carousel if there is any external change, e.g. add elements without using the <code>add</code> method.</li>
+                        <li><code>stop:</code> immediately suspend any animation.</li>
+                        <li><code>refresh ([callback]):</code> refresh the carousel if there is any external change, e.g. add elements without using the <code>add</code> method.</li>
                     </ul>
                     <p>You can write JavaScript code invoking these methods to control the behaviors of the carousel. You can also do it by coding plugins.</p>
 
+<!-- 
+* Plugins
+============================================================-->
                     <h4>Plugins</h4>
-                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 3 built-in plugins: <code>wings</code>, <code>clickSelect</code> and <code>hoverSlide</code>. You have seen <code>wings</code> and <code>clickSelect</code> in the first example. Example using <code>hoverSlide</code> is as follows.</p>
+                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 3 built-in plugins: <code>wings</code>, <code>selectOn</code> and <code>hoverSlide</code>. All these plugins are used in different examples in this page.
+                    
+
+                    <h3>More examples</h3> 
+
+
+<!-- 
+* Example 2
+============================================================-->                    
+                    <h4>Slide upon hover</h4> 
+                    <p>Hover on the carousel to navigate to any image. This example doesn't fit well with touch devices of course. Although it's worth trying to hover your finger over the surface.</p>
                     <p>
                         <div id='c2' class='carousel'></div>
                         <script>
                             $(function() {
-                                $carousel = $('#c2').yajc().yajc('hoverSlide');
-                                loadImage($carousel);
+                                var $c = $('#c2').yajc()
+                                    .yajc('hoverSlide');
+
+                                $.getJSON('images/images.json', function(images) {
+                                    $.each(images, function(idx, img) {
+                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                    });
+                                });
                             });
                         </script>
                     </p>
-                    <h5>HTML</h5>
-                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c2&#39;&gt;&lt;/div&gt;</pre>
-                    <h5>JavaScript</h5>
-                    <pre class='prettyprint linenums lang-javascript'>$(function() {
-    $carousel = $(&#39;#c2&#39;).yajc().yajc(&#39;hoverSlide&#39;);
-    loadImage($carousel);
-});</pre>
+                    
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#js2">JavaScript</a></li>
+                    </ul>
+                     
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="js2"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c2&#39;).yajc()
+        .yajc(&#39;hoverSlide&#39;);
+
+    $.getJSON(&#39;images/images.json&#39;, function(images) {
+        $.each(images, function(idx, img) {
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+        });
+    });
+});</pre></div>
+                    </div>
 
 
-                    <h3>More examples</h3> 
-                    <h4>Use options</h4>
+<!-- 
+* Example 3
+============================================================-->   
+                    <h4>Animate add and remove</h4>
+                    <p>Refresh to see images are added with animation. Click or tap to remove.</p>
                     <p>
                         <div id='c3' class='carousel'></div>
                         <script>
                             $(function() {
-                                $carousel = $('#c3').yajc({
+                                var $c = $('#c3').yajc({
                                     addDuration: 100,
-                                    msPer100px: 300
-                                }).yajc('clickSelect');
-                                loadImage($carousel);
+                                    removeDuration: 200
+                                });
+
+                                $.getJSON('images/images.json', function(images) {
+                                    (function add(index) {
+                                        $c.yajc('add', '<li><img src="' + images[index].url + '"></li>', 
+
+                                            // add() is async when addDuration is not 0
+                                            // so using callback to simulate sequential addition
+                                            function() {
+                                                if (++index < images.length) add(index); 
+                                                else {
+                                                    $c.find('li').on(isTouchDevice() ? 'touchstart' : 'click', function() {
+                                                        $c.yajc('remove', $(this));
+                                                    });
+                                                }   
+                                            }
+                                        );
+                                    })(0);
+                                });
                             });
                         </script>
                     </p>
-                    <h5>HTML</h5>
-                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c3&#39;&gt;&lt;/div&gt;</pre>
-                    <h5>JavaScript</h5>
-                    <pre class='prettyprint linenums lang-javascript'>$(function() {
-    $carousel = $(&#39;#c3&#39;).yajc({
-        addDuration: 100,
-        msPer100px: 300
-    }).yajc(&#39;clickSelect&#39;);
-    loadImage($carousel);
-});</pre>
 
-                    <h4>Delete by double-clicking</h4>
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#js3">JavaScript</a></li>
+                    </ul>
+                     
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="js3"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c3&#39;).yajc({
+        addDuration: 100,
+        removeDuration: 200
+    });
+
+    $.getJSON(&#39;images/images.json&#39;, function(images) {
+        (function add(index) {
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + images[index].url + &#39;&quot;&gt;&lt;/li&gt;&#39;, 
+
+                // add() is async when addDuration is not 0
+                // so using callback to simulate sequential addition
+                function() {
+                    if (++index &lt; images.length) add(index); 
+                    else {
+                        $c.find(&#39;li&#39;).on(isTouchDevice() ? &#39;touchstart&#39; : &#39;click&#39;, function() {
+                            $c.yajc(&#39;remove&#39;, $(this));
+                        });
+                    }   
+                }
+            );
+        })(0);
+    });
+});</pre></div>
+                    </div>
+
+
+<!-- 
+* Example 4
+============================================================-->   
+                    <h4>Variable-width images</h4>
+                    <p>Images' width is calculated on the fly. Also notice the style of the wings is changed.</p>
                     <p>
                         <div id='c4' class='carousel'></div>
                         <script>
                             $(function() {
-                                $carousel = $('#c4').yajc({
-                                    removeDuration: 300
-                                }).yajc('wings', 'circle');
+                                var $c = $('#c4').yajc()
+                                    .yajc('wings', {
+                                        style: 'circle'
+                                    });
 
-                                $carousel.find('li').live('dblclick', function() {
-                                    $carousel.yajc('remove', this);
+                                $.getJSON('images/images.json', function(images) {
+                                    $.each(images, function(idx, img) {
+                                        $c.yajc('add', '<li><img src="' + img.url + '" style="width:' +  rand(100, 200) + 'px;"></li>');
+                                    });
                                 });
-
-                                loadImage($carousel);
                             });
                         </script>
-                    </p>         
-                    <h5>HTML</h5>
-                    <pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c4&#39;&gt;&lt;/div&gt;</pre>
-                    <h5>JavaScript</h5>
-                    <pre class='prettyprint linenums lang-javascript'>$(function() {
-    $carousel = $(&#39;#c4&#39;).yajc({
-        removeDuration: 300
-    }).yajc(&#39;wings&#39;, &#39;circle&#39;);
+                    </p>
 
-    $carousel.find(&#39;li&#39;).live(&#39;dblclick&#39;, function() {
-        $carousel.yajc(&#39;remove&#39;, this);
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#js4">JavaScript</a></li>
+                    </ul>
+                     
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="js4"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c4&#39;).yajc()
+        .yajc(&#39;wings&#39;, {
+            style: &#39;circle&#39;
+        });
+
+    $.getJSON(&#39;images/images.json&#39;, function(images) {
+        $.each(images, function(idx, img) {
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot; style=&quot;width:&#39; +  rand(100, 200) + &#39;px;&quot;&gt;&lt;/li&gt;&#39;);
+        });
     });
-    
-    loadImage($carousel);
-});</pre>    
+});</pre></div>
+                    </div>
 
                 </section>
                 <footer>

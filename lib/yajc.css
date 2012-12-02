@@ -26,6 +26,17 @@
     z-index: 0;
 }
 
+.yajc.touch {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .yajc .items {
     left: 0;
     list-style-type: none;
@@ -46,43 +57,53 @@
 * Provides slide left and slide right wings.
 * ========================================================== */
 .yajc .wing {
-    cursor: default;
+    cursor: default;    
     background-color: #222;
     color: white;
-    filter: alpha(opacity=60);
     font-family: Garamond, Bookman, Courier, sans-serif;
     font-weight: 100;
-    opacity: 0.6;
     position: absolute;
-    text-align: center;
     text-decoration: none;
     z-index: 1;
+    text-align: center; 
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+.yajc .wing.on { 
+    opacity: 1; 
+    filter: alpha(opacity=100);
 }
 
-.yajc .wing:hover { opacity: 1; }
-
 .yajc .pad {
-    font-size: 30px;
     height: 100%;
     left: 0;
     top: 0;
     width: 20px;
+    display: table; 
 }
-
 .yajc .pad.forward { left: auto; right: 0; }
+.yajc .pad p {
+    font-size: 30px;
+    display: table-cell; 
+    vertical-align: middle; 
+}
 
 .yajc .circle {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
-    border: 2px solid white;
     border-radius: 20px;
-    font-size: 34px;
+    border: 2px solid white;
     height: 26px;
+    width: 26px;
+    line-height: 20px;
     left: 2px;
-    line-height: 21px;
     margin-top: -13px;
     top: 50%;
-    width: 26px;
 }
-
-.yajc .circle.forward { left: auto; right: 2px; }
+.yajc .circle.forward { 
+    left: auto; 
+    right: 2px; 
+}
+.yajc .circle p {
+    font-size: 34px;
+}

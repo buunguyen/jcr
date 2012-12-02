@@ -68,6 +68,7 @@
                         <li>Small, less than 5KB of minified JavaScript and CSS</li>
                         <li>Tested on Chrome, Firefox, Safari 5/6, Internet Explorer 9/10</li>
                     </ul>
+                    <p><span class="label label-important">yajc.js</span> does not work well with touch devices. On these devices, <span class="label label-important">yajc.js</span> simply falls back to show scrollable content.</p>
 
                     <h3>Show me</h3>
                     <p>
@@ -87,7 +88,7 @@
                             $(function() {
                                 $carousel = $('#c1').yajc() 
                                     .yajc('wings') 
-                                    .yajc('selectOn', 'click');
+                                    .yajc('clickSelect');
                                 loadImage($carousel);
                             });
                         </script>
@@ -98,7 +99,7 @@
                     <pre class='prettyprint linenums lang-javascript'>$(function() {
     $carousel = $(&#39;#c1&#39;).yajc() 
         .yajc(&#39;wings&#39;) 
-        .yajc(&#39;selectOn&#39;, &#39;click&#39;);
+        .yajc(&#39;clickSelect&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         (function load(index) {
@@ -155,7 +156,7 @@
                     <p>You can write JavaScript code invoking these methods to control the behaviors of the carousel. You can also do it by coding plugins.</p>
 
                     <h4>Plugins</h4>
-                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 3 built-in plugins: <code>wings</code>, <code>selectOn</code> and <code>hoverSlide</code>. You have seen <code>wings</code> and <code>selectOn</code> in the first example. Example using <code>hoverSlide</code> is as follows.</p>
+                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 3 built-in plugins: <code>wings</code>, <code>clickSelect</code> and <code>hoverSlide</code>. You have seen <code>wings</code> and <code>clickSelect</code> in the first example. Example using <code>hoverSlide</code> is as follows.</p>
                     <p>
                         <div id='c2' class='carousel'></div>
                         <script>
@@ -183,7 +184,7 @@
                                 $carousel = $('#c3').yajc({
                                     addDuration: 100,
                                     msPer100px: 300
-                                }).yajc('selectOn', 'click');
+                                }).yajc('clickSelect');
                                 loadImage($carousel);
                             });
                         </script>
@@ -195,7 +196,7 @@
     $carousel = $(&#39;#c3&#39;).yajc({
         addDuration: 100,
         msPer100px: 300
-    }).yajc(&#39;selectOn&#39;, &#39;click&#39;);
+    }).yajc(&#39;clickSelect&#39;);
     loadImage($carousel);
 });</pre>
 

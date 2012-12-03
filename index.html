@@ -264,7 +264,7 @@
 * Example 3
 ============================================================-->   
                     <h4>Animate add and remove</h4>
-                    <p>Refresh to see images are added with animation. Click or tap to remove.</p>
+                    <p>Refresh to see images are added with animation. Click or tap to remove. Images' width can be computed on the fly without causing any trouble.</p>
                     <p>
                         <div id='c3' class='carousel'></div>
                         <script>
@@ -272,11 +272,11 @@
                                 var $c = $('#c3').yajc({
                                     addDuration: 100,
                                     removeDuration: 200
-                                });
+                                }).yajc('wings');
 
                                 $.getJSON('images/images.json', function(images) {
                                     (function add(index) {
-                                        $c.yajc('add', '<li><img src="' + images[index].url + '"></li>', 
+                                        $c.yajc('add', '<li><img src="' + images[index].url + '" style="width:' +  rand(100, 200) + 'px;"></li>',
 
                                             // add() is async when addDuration is not 0
                                             // so using callback to simulate sequential addition
@@ -304,11 +304,11 @@
     var $c = $(&#39;#c3&#39;).yajc({
         addDuration: 100,
         removeDuration: 200
-    });
+    }).yajc(&#39;wings&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         (function add(index) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + images[index].url + &#39;&quot;&gt;&lt;/li&gt;&#39;, 
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + images[index].url + &#39;&quot; style=&quot;width:&#39; +  rand(100, 200) + &#39;px;&quot;&gt;&lt;/li&gt;&#39;,
 
                 // add() is async when addDuration is not 0
                 // so using callback to simulate sequential addition
@@ -330,20 +330,41 @@
 <!-- 
 * Example 4
 ============================================================-->   
-                    <h4>Variable-width images</h4>
-                    <p>Images' width is calculated on the fly. Also notice the style of the wings is changed.</p>
+                    <h4>Snap</h4>
+                    <p>Demonstrate a more advanced use of the <code>wings</code> plugin whereas items are snapped to the container's edges. Show notice the usage of <code>showOnHover</code> and <code>style</code> options.</p>
                     <p>
-                        <div id='c4' class='carousel'></div>
+                        <style>
+                            .snap_carousel { 
+                                padding: 5px; 
+                                background-color: black; 
+                                border-radius: 5px;
+                                width: 750px;
+                            } 
+
+                            .snap_carousel li { 
+                                margin: 0 2px; 
+                                border: 1px solid #ccc;
+                                width: 244px; 
+                                height: 150px;
+                            } 
+
+                            .snap_carousel li img {
+                                width: 100%; 
+                                height: 100%; 
+                            }
+                        </style>                        
+                        <div id='c4' class='snap_carousel'></div>           
                         <script>
                             $(function() {
-                                var $c = $('#c4').yajc()
-                                    .yajc('wings', {
-                                        style: 'circle'
-                                    });
+                                var $c = $('#c4').yajc().yajc('wings', {
+                                    style: 'circle',
+                                    showOnHover: false,
+                                    snap: true                                    
+                                });
 
                                 $.getJSON('images/images.json', function(images) {
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '" style="width:' +  rand(100, 200) + 'px;"></li>');
+                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
                                     });
                                 });
                             });
@@ -352,23 +373,45 @@
 
                     <ul class="nav nav-tabs">
                       <li class="active"><a href="#js4">JavaScript</a></li>
+                      <li><a href="#html4">HTML</a></li>
+                      <li><a href="#css4">CSS</a></li>
                     </ul>
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js4"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c4&#39;).yajc()
-        .yajc(&#39;wings&#39;, {
-            style: &#39;circle&#39;
-        });
+    var $c = $(&#39;#c4&#39;).yajc().yajc(&#39;wings&#39;, {
+        style: &#39;circle&#39;,
+        showOnHover: false,
+        snap: true                                    
+    });
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot; style=&quot;width:&#39; +  rand(100, 200) + &#39;px;&quot;&gt;&lt;/li&gt;&#39;);
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
         });
     });
 });</pre></div>
-                    </div>
+                        
+                      <div class="tab-pane" id="html4"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c4&#39; class=&#39;snap_carousel&#39;&gt;&lt;/div&gt;</pre></div>
+                        <div class="tab-pane" id="css4"><pre class='prettyprint linenums lang-css'>.snap_carousel { 
+    padding: 5px; 
+    background-color: black; 
+    border-radius: 5px;
+    width: 750px;
+} 
 
+.snap_carousel li { 
+    margin: 0 2px; 
+    border: 1px solid #ccc;
+    width: 244px; 
+    height: 150px;
+} 
+
+.snap_carousel li img {
+    width: 100%; 
+    height: 100%; 
+}</pre></div>
+                    </div>
                 </section>
                 <footer>
                     <p>

@@ -59,7 +59,7 @@
                         <li>Single-minded: a minimally programmable horizontal carousel, that's it</code>
                         <li>Responsive to however-styled containing HTML element, child elements and browser resize</li>
                         <li>CSS-driven UI, easy to customize by overriding default styles</li>
-                        <li>Small, just over 2KB of gzipped JavaScript and CSS</li>
+                        <li>Small, 2.5KB of gzipped and minified JavaScript and CSS</li>
                         <li>Tested on Chrome, Firefox, Safari 5/6/Mobile, Internet Explorer 9/10</li>
                     </ul>
                     <p><span class="label label-important">yajc.js</span> currently does not support guestures like flick, wipe etc. on touch devices. Also, some examples below don't work when hovering or double-clicking are used.</p>
@@ -196,7 +196,7 @@
                         </li>
                         <li><code>show (target [, callback])</code>
                             <ul>
-                                <li><code>target:</code> the jQuery object, DOM element or index to be shown</li>
+                                <li><code>target:</code> the jQuery object, DOM element, index, 'next' or 'prev'</li>
                                 <li><code>callback (optional):</code> the callback to be invoked after showing</li>
                             </ul>   
                         </li>
@@ -271,7 +271,7 @@
                             $(function() {
                                 var $c = $('#c3').yajc({
                                     addDuration: 100,
-                                    removeDuration: 200
+                                    removeDuration: 300
                                 }).yajc('wings');
 
                                 $.getJSON('images/images.json', function(images) {
@@ -303,7 +303,7 @@
                       <div class="tab-pane active" id="js3"><pre class='prettyprint linenums lang-javascript'>$(function() {
     var $c = $(&#39;#c3&#39;).yajc({
         addDuration: 100,
-        removeDuration: 200
+        removeDuration: 300
     }).yajc(&#39;wings&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
@@ -331,7 +331,7 @@
 * Example 4
 ============================================================-->   
                     <h4>Snap</h4>
-                    <p>Demonstrate a more advanced use of the <code>wings</code> plugin whereas items are snapped to the container's edges. Show notice the usage of <code>showOnHover</code> and <code>style</code> options.</p>
+                    <p>Demonstrate a more advanced use of the <code>wings</code> plugin whereas images are snapped to the container's edges. Show notice the usage of <code>showOnHover</code> and <code>style</code> options. The carousel can also host any HTML contents,not just images.</p>
                     <p>
                         <style>
                             .snap_carousel { 
@@ -346,11 +346,24 @@
                                 border: 1px solid #ccc;
                                 width: 244px; 
                                 height: 150px;
+                                position: relative;
                             } 
 
                             .snap_carousel li img {
                                 width: 100%; 
                                 height: 100%; 
+                            }
+
+                            .snap_carousel .title {
+                                position: absolute;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                height: 20px;
+                                background-color: black;
+                                color: white;
+                                text-align: center;
+                                opacity: 0.7;
                             }
                         </style>                        
                         <div id='c4' class='snap_carousel'></div>           
@@ -364,7 +377,7 @@
 
                                 $.getJSON('images/images.json', function(images) {
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + '</span></li>');
                                     });
                                 });
                             });
@@ -387,7 +400,7 @@
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
         });
     });
 });</pre></div>
@@ -405,11 +418,24 @@
     border: 1px solid #ccc;
     width: 244px; 
     height: 150px;
+    position: relative;
 } 
 
 .snap_carousel li img {
     width: 100%; 
     height: 100%; 
+}
+
+.snap_carousel .title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    opacity: 0.7;
 }</pre></div>
                     </div>
                 </section>

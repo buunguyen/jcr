@@ -25,7 +25,6 @@
     width: 100%;
     z-index: 0;
 }
-
 .yajc.touch {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -35,7 +34,7 @@
     user-select: none;
 }
 
-.yajc .items {
+.yajc > ul {
     left: 0;
     list-style-type: none;
     margin: 0;
@@ -44,7 +43,7 @@
     top: 0;
 }
 
-.yajc .items li { float: left; }
+.yajc > ul li { float: left; }
 
 
 /* ===================================================
@@ -54,7 +53,8 @@
 *
 * Provides slide left and slide right wings.
 * ========================================================== */
-.yajc .wing {
+.yajc .wing,
+.yajc .wing.on.disabled {
     cursor: default;    
     background-color: #222;
     color: white;
@@ -79,7 +79,11 @@
     width: 20px;
     display: table; 
 }
-.yajc .pad.forward { left: auto; right: 0; }
+.yajc .pad.forward { 
+    left: auto;
+    right: 0; 
+}
+
 .yajc .pad p {
     font-size: 30px;
     display: table-cell; 
@@ -102,6 +106,7 @@
     left: auto; 
     right: 2px; 
 }
+
 .yajc .circle p {
     font-size: 34px;
 }

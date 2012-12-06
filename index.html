@@ -59,7 +59,7 @@
                         <li>Single-minded: a minimally programmable horizontal carousel, that's it</code>
                         <li>Responsive to however-styled containing HTML element, child elements and browser resize</li>
                         <li>CSS-driven UI, easy to customize by overriding default styles</li>
-                        <li>Small, 2.5KB of gzipped and minified JavaScript and CSS</li>
+                        <li>Small, ~2.5KB of gzipped and minified JavaScript and CSS</li>
                         <li>Tested on Chrome, Firefox, Safari 5/6/Mobile, Internet Explorer 9/10</li>
                     </ul>
                     <p><span class="label label-important">yajc.js</span> currently does not support guestures like flick, wipe etc. on touch devices. Also, some examples below don't work when hovering or double-clicking are used.</p>
@@ -169,9 +169,10 @@
 ============================================================-->
                     <h3>Tell me more</h3>
                     <h4>Core</h4>
-                    <p><span class="label label-important">yajc.js</span> has a very small core, exposing 1 initializer and 6 methods:</p>
+                    <p><span class="label label-important">yajc.js</span> has a small core, including the following initializer, methods and events:</p>
+                    <h5>Initializer</h5>
                     <ul class='methods'>
-                        <li><code>init ([options]):</code> invoke by calling <code>$obj.yajc({...})</code>. Options include:
+                        <li><code>initializer ([options]):</code> invoke by calling <code>$obj.yajc({...})</code>. Options include:
                             <ul>
                                 <li><code>addDuration:</code> the duration in ms to animate element addition</li>
                                 <li><code>removeDuration:</code> the duration in ms to animate element removal</li>
@@ -180,7 +181,10 @@
                                 <li><code>slideEasing:</code> the name of the easing function used in <code>slide()</code></li>   
                                 <li>You can set global defaults by overriding properties in <code>$.fn.yajc.defaults</code></li>                              
                             </ul>
-                        </li>                      
+                        </li>             
+                    </ul>
+                    <h5>Methods</h5>
+                    <ul class='methods'>                  
                         <li><code>add (target [, position] [, callback])</code>
                             <ul>
                                 <li><code>target:</code> the jQuery object or DOM element to be added</li>
@@ -206,10 +210,25 @@
                                 <li><code>callback (optional):</code> the callback to be invoked after sliding</li>
                             </ul>   
                         </li>
+                        <li><code>canSlideLeft:</code> return true if the carousel can slide further to the right.</li>
+                        <li><code>canSlideRight:</code> return true if the carousel can slide further to the right.</li>
                         <li><code>stop:</code> immediately suspend any animation.</li>
-                        <li><code>refresh ([callback]):</code> refresh the carousel if there is any external change, e.g. add elements without using the <code>add</code> method.</li>
+                        <li><code>refresh ([callback]):</code> recompute the carousel's relative position and dimensions. Should be invoked directly if there is any external change, e.g. add elements without using the <code>add</code> method.</li>
                     </ul>
-                    <p>You can write JavaScript code invoking these methods to control the behaviors of the carousel. You can also do it by coding plugins.</p>
+                    <h5>Events</h5>
+                    <ul class='methods'> 
+                        <li><code>yajc.added (DOM element)</code>: triggered after an element is added and add animation is completed.</li>
+
+                        <li><code>yajc.removed (DOM element)</code>: triggered after an element is removed and remove animation is completed.</li>
+
+                        <li><code>yajc.shown (DOM element)</code>: triggered after an element is completely shown in view.</li>
+
+                        <li><code>yajc.slided (position)</code>: triggered after the carousel has slided.</li>
+
+                        <li><code>yajc.refreshed</code>: triggered after the carousel has been refreshed.</li>
+                    </ul>
+
+                    <p>You can write JavaScript code using these methos and events to control the behaviors of the carousel. You can also do it by coding plugins.</p>
 
 <!-- 
 * Plugins
@@ -447,6 +466,5 @@
                 </footer>
             </div>
         </div>
-        <script src="docs/scale.fix.js"></script>
     </body>
 </html>

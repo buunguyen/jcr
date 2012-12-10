@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         },
         cssmin: {
             all: {
-                src: ['<banner>', 'lib/yajc.css'],
+                src: ['lib/yajc.css'],
                 dest: 'lib/yajc.min.css'
             }
         }

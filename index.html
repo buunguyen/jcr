@@ -234,23 +234,22 @@
 * Plugins
 ============================================================-->
                     <h4>Plugins</h4>
-                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 3 built-in plugins: <code>wings</code>, <code>selectOn</code> and <code>hoverSlide</code>. All these plugins are used in different examples in this page.
+                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 4 built-in plugins: <code>wings</code>, <code>selectOn</code>, <code>swipe</code> and <code>hoverSlide</code>. All these plugins are used in different examples in this page.
                     
 
                     <h3>More examples</h3> 
 
-
 <!-- 
 * Example 2
 ============================================================-->                    
-                    <h4>Slide upon hover</h4> 
-                    <p>Hover on the carousel to navigate to any image. This example doesn't go well with touch devices of course.</p>
+                    <h4>Swipe</h4> 
+                    <p>Add touch-friendly swipe event to traverse the carousel.</p>
                     <p>
                         <div id='c2' class='carousel'></div>
                         <script>
                             $(function() {
                                 var $c = $('#c2').yajc()
-                                    .yajc('hoverSlide');
+                                    .yajc('swipe');
 
                                 $.getJSON('images/images.json', function(images) {
                                     $.each(images, function(idx, img) {
@@ -268,7 +267,7 @@
                     <div class="tab-content">
                       <div class="tab-pane active" id="js2"><pre class='prettyprint linenums lang-javascript'>$(function() {
     var $c = $(&#39;#c2&#39;).yajc()
-        .yajc(&#39;hoverSlide&#39;);
+        .yajc(&#39;swipe&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
@@ -281,14 +280,53 @@
 
 <!-- 
 * Example 3
-============================================================-->   
-                    <h4>Animate add and remove</h4>
-                    <p>Refresh to see images are added with animation. Click or tap to remove. Images' width can be computed on the fly without causing any trouble.</p>
+============================================================-->                    
+                    <h4>Slide upon hover</h4> 
+                    <p>Hover on the carousel to navigate to any image. This example doesn't go well with touch devices of course.</p>
                     <p>
                         <div id='c3' class='carousel'></div>
                         <script>
                             $(function() {
-                                var $c = $('#c3').yajc({
+                                var $c = $('#c3').yajc()
+                                    .yajc('hoverSlide');
+
+                                $.getJSON('images/images.json', function(images) {
+                                    $.each(images, function(idx, img) {
+                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                    });
+                                });
+                            });
+                        </script>
+                    </p>
+                    
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#js3">JavaScript</a></li>
+                    </ul>
+                     
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="js3"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c3&#39;).yajc()
+        .yajc(&#39;hoverSlide&#39;);
+
+    $.getJSON(&#39;images/images.json&#39;, function(images) {
+        $.each(images, function(idx, img) {
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+        });
+    });
+});</pre></div>
+                    </div>
+
+
+<!-- 
+* Example 4
+============================================================-->   
+                    <h4>Animate add and remove</h4>
+                    <p>Refresh to see images are added with animation. Click or tap to remove. Images' width can be computed on the fly without causing any trouble.</p>
+                    <p>
+                        <div id='c4' class='carousel'></div>
+                        <script>
+                            $(function() {
+                                var $c = $('#c4').yajc({
                                     addDuration: 100,
                                     removeDuration: 300
                                 }).yajc('wings');
@@ -315,12 +353,12 @@
                     </p>
 
                     <ul class="nav nav-tabs">
-                      <li class="active"><a href="#js3">JavaScript</a></li>
+                      <li class="active"><a href="#js4">JavaScript</a></li>
                     </ul>
                      
                     <div class="tab-content">
-                      <div class="tab-pane active" id="js3"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c3&#39;).yajc({
+                      <div class="tab-pane active" id="js4"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c4&#39;).yajc({
         addDuration: 100,
         removeDuration: 300
     }).yajc(&#39;wings&#39;);
@@ -347,122 +385,10 @@
 
 
 <!-- 
-* Example 4
+* Example 5
 ============================================================-->   
                     <h4>Snap</h4>
                     <p>Demonstrate a more advanced use of the <code>wings</code> plugin whereas images are snapped to the container's edges. Also notice the usage of <code>showOnHover</code> and <code>style</code> options. The carousel can also host any HTML contents, not just images.</p>
-                    <p>
-                        <style>
-                            .snap_carousel { 
-                                padding: 5px; 
-                                background-color: black; 
-                                border-radius: 5px;
-                                width: 750px;
-                            } 
-
-                            .snap_carousel li { 
-                                margin: 0 2px; 
-                                border: 1px solid #ccc;
-                                width: 244px; 
-                                height: 150px;
-                                position: relative;
-                            } 
-
-                            .snap_carousel li img {
-                                width: 100%; 
-                                height: 100%; 
-                            }
-
-                            .snap_carousel .title {
-                                position: absolute;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
-                                height: 20px;
-                                background-color: black;
-                                color: white;
-                                text-align: center;
-                                opacity: 0.7;
-                            }
-                        </style>                        
-                        <div id='c4' class='snap_carousel'></div>           
-                        <script>
-                            $(function() {
-                                var $c = $('#c4').yajc().yajc('wings', {
-                                    style: 'circle',
-                                    showOnHover: false,
-                                    snap: true                                    
-                                });
-
-                                $.getJSON('images/images.json', function(images) {
-                                    $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + '</span></li>');
-                                    });
-                                });
-                            });
-                        </script>
-                    </p>
-
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a href="#js4">JavaScript</a></li>
-                      <li><a href="#html4">HTML</a></li>
-                      <li><a href="#css4">CSS</a></li>
-                    </ul>
-                     
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="js4"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c4&#39;).yajc().yajc(&#39;wings&#39;, {
-        style: &#39;circle&#39;,
-        showOnHover: false,
-        snap: true                                    
-    });
-
-    $.getJSON(&#39;images/images.json&#39;, function(images) {
-        $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
-        });
-    });
-});</pre></div>
-                        
-                      <div class="tab-pane" id="html4"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c4&#39; class=&#39;snap_carousel&#39;&gt;&lt;/div&gt;</pre></div>
-                        <div class="tab-pane" id="css4"><pre class='prettyprint linenums lang-css'>.snap_carousel { 
-    padding: 5px; 
-    background-color: black; 
-    border-radius: 5px;
-    width: 750px;
-} 
-
-.snap_carousel li { 
-    margin: 0 2px; 
-    border: 1px solid #ccc;
-    width: 244px; 
-    height: 150px;
-    position: relative;
-} 
-
-.snap_carousel li img {
-    width: 100%; 
-    height: 100%; 
-}
-
-.snap_carousel .title {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 20px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    opacity: 0.7;
-}</pre></div>
-                    </div>
-
-
-<!-- 
-* Example 5
-============================================================-->   
-                    <p>Another example of the <code>wings</code> plugin with step set to 3.</p>
                     <p>
                         <style>
                             .snap_carousel { 
@@ -503,6 +429,118 @@
                                 var $c = $('#c5').yajc().yajc('wings', {
                                     style: 'circle',
                                     showOnHover: false,
+                                    snap: true                                    
+                                });
+
+                                $.getJSON('images/images.json', function(images) {
+                                    $.each(images, function(idx, img) {
+                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + '</span></li>');
+                                    });
+                                });
+                            });
+                        </script>
+                    </p>
+
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#js5">JavaScript</a></li>
+                      <li><a href="#html5">HTML</a></li>
+                      <li><a href="#css5">CSS</a></li>
+                    </ul>
+                     
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="js5"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c4&#39;).yajc().yajc(&#39;wings&#39;, {
+        style: &#39;circle&#39;,
+        showOnHover: false,
+        snap: true                                    
+    });
+
+    $.getJSON(&#39;images/images.json&#39;, function(images) {
+        $.each(images, function(idx, img) {
+            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
+        });
+    });
+});</pre></div>
+                        
+                      <div class="tab-pane" id="html5"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c4&#39; class=&#39;snap_carousel&#39;&gt;&lt;/div&gt;</pre></div>
+                        <div class="tab-pane" id="css5"><pre class='prettyprint linenums lang-css'>.snap_carousel { 
+    padding: 5px; 
+    background-color: black; 
+    border-radius: 5px;
+    width: 750px;
+} 
+
+.snap_carousel li { 
+    margin: 0 2px; 
+    border: 1px solid #ccc;
+    width: 244px; 
+    height: 150px;
+    position: relative;
+} 
+
+.snap_carousel li img {
+    width: 100%; 
+    height: 100%; 
+}
+
+.snap_carousel .title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    opacity: 0.7;
+}</pre></div>
+                    </div>
+
+
+<!-- 
+* Example 6
+============================================================-->   
+                    <p>Another example of the <code>wings</code> plugin with step set to 3.</p>
+                    <p>
+                        <style>
+                            .snap_carousel { 
+                                padding: 5px; 
+                                background-color: black; 
+                                border-radius: 5px;
+                                width: 750px;
+                            } 
+
+                            .snap_carousel li { 
+                                margin: 0 2px; 
+                                border: 1px solid #ccc;
+                                width: 244px; 
+                                height: 150px;
+                                position: relative;
+                            } 
+
+                            .snap_carousel li img {
+                                width: 100%; 
+                                height: 100%; 
+                            }
+
+                            .snap_carousel .title {
+                                position: absolute;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                height: 20px;
+                                background-color: black;
+                                color: white;
+                                text-align: center;
+                                opacity: 0.7;
+                            }
+                        </style>                        
+                        <div id='c6' class='snap_carousel'></div>           
+                        <script>
+                            $(function() {
+                                var $c = $('#c6').yajc().yajc('wings', {
+                                    style: 'circle',
+                                    showOnHover: false,
                                     snap: true,
                                     step: 3                               
                                 });
@@ -517,12 +555,12 @@
                     </p>
 
                     <ul class="nav nav-tabs">
-                      <li class="active"><a href="#js5">JavaScript</a></li>
+                      <li class="active"><a href="#js6">JavaScript</a></li>
                     </ul>
                      
                     <div class="tab-content">
-                      <div class="tab-pane active" id="js5"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c5&#39;).yajc().yajc(&#39;wings&#39;, {
+                      <div class="tab-pane active" id="js6"><pre class='prettyprint linenums lang-javascript'>$(function() {
+    var $c = $(&#39;#c6&#39;).yajc().yajc(&#39;wings&#39;, {
         style: &#39;circle&#39;,
         showOnHover: false,
         snap: true,                               

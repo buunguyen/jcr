@@ -211,7 +211,10 @@
                         </li>
                         <li><code>canSlideLeft:</code> return true if the carousel can slide further to the right.</li>
                         <li><code>canSlideRight:</code> return true if the carousel can slide further to the right.</li>
-                        <li><code>stop:</code> immediately suspend any animation.</li>
+                        <li><code>stop ([jumpToEnd]):</code> immediately suspend any animation.
+                            <ul>
+                                <li><code>jumpToEnd (optional):</code> jump to the end of the carousel when stopping, default is <code>true</code></li>
+                            </ul>   </li>
                         <li><code>refresh ([callback]):</code> recompute the carousel's relative position and dimensions. Should be invoked directly if there is any external change, e.g. add elements without using the <code>add</code> method.</li>
                     </ul>
                     <h5>Events</h5>
@@ -241,14 +244,14 @@
 <!-- 
 * Example 2
 ============================================================-->                    
-                    <h4>Swipe</h4> 
-                    <p>Swipe and flick guestures handling via the <code>swipe</code> plugin.</p>
+                    <h4>Flick</h4> 
+                    <p>Flick and swipe guestures handling via the <code>flick</code> plugin.</p>
                     <p>
                         <div id='c2' class='carousel'></div>
                         <script>
                             $(function() {
                                 var $c = $('#c2').yajc()
-                                    .yajc('swipe');
+                                    .yajc('flick');
 
                                 $.getJSON('images/images.json', function(images) {
                                     for (var i = 0; i < 50; i++) {
@@ -267,7 +270,7 @@
                     <div class="tab-content">
                       <div class="tab-pane active" id="js2"><pre class='prettyprint linenums lang-javascript'>$(function() {
     var $c = $(&#39;#c2&#39;).yajc()
-        .yajc(&#39;swipe&#39;);
+        .yajc(&#39;flick&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         for (var i = 0; i &lt; 50; i++) {

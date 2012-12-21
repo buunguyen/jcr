@@ -62,7 +62,6 @@
                         <li>Small, ~3KB of gzipped and minified JavaScript and CSS</li>
                         <li>Tested on Chrome, Firefox, Safari 5/6/Mobile, Internet Explorer 9/10</li>
                     </ul>
-                    <p><span class="label label-important">yajc.js</span> currently does not support guestures like flick, wipe etc. on touch devices.</p>
 
 
 <!-- 
@@ -105,7 +104,7 @@
                         </style>
                         <script>
                             $(function() {
-                                var $c = $('#c1').yajc() 
+                                var $c = $('#c1').yajc()
                                     .yajc('wings') 
                                     .yajc('selectOn', isTouchDevice() ? 'touchstart' : 'click');
 
@@ -243,7 +242,7 @@
 * Example 2
 ============================================================-->                    
                     <h4>Swipe</h4> 
-                    <p>Add touch-friendly swipe event to traverse the carousel.</p>
+                    <p>Swipe and flick guestures handling via the <code>swipe</code> plugin.</p>
                     <p>
                         <div id='c2' class='carousel'></div>
                         <script>
@@ -252,9 +251,10 @@
                                     .yajc('swipe');
 
                                 $.getJSON('images/images.json', function(images) {
-                                    $.each(images, function(idx, img) {
+                                    for (var i = 0; i < 50; i++) {
+                                        var img = images[i % images.length];
                                         $c.yajc('add', '<li><img src="' + img.url + '"></li>');
-                                    });
+                                    }
                                 });
                             });
                         </script>
@@ -270,9 +270,10 @@
         .yajc(&#39;swipe&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
-        $.each(images, function(idx, img) {
+        for (var i = 0; i &lt; 50; i++) {
+            var img = images[i % images.length];
             $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
-        });
+        }
     });
 });</pre></div>
                     </div>
@@ -391,39 +392,38 @@
                     <p>Demonstrate a more advanced use of the <code>wings</code> plugin whereas images are snapped to the container's edges. Also notice the usage of <code>showOnHover</code> and <code>style</code> options. The carousel can also host any HTML contents, not just images.</p>
                     <p>
                         <style>
-                            .snap_carousel { 
+                            #c5 { 
                                 padding: 5px; 
                                 background-color: black; 
                                 border-radius: 5px;
-                                width: 750px;
+                                width: 500px;
                             } 
 
-                            .snap_carousel li { 
+                            #c5 li { 
                                 margin: 0 2px; 
                                 border: 1px solid #ccc;
-                                width: 244px; 
-                                height: 150px;
+                                width: 496px; 
+                                height: 300px;
                                 position: relative;
                             } 
 
-                            .snap_carousel li img {
+                            #c5 li img {
                                 width: 100%; 
                                 height: 100%; 
                             }
 
-                            .snap_carousel .title {
+                            #c5 .title {
                                 position: absolute;
                                 left: 0;
                                 right: 0;
-                                bottom: 0;
-                                height: 20px;
+                                bottom: 0;;
                                 background-color: black;
                                 color: white;
                                 text-align: center;
                                 opacity: 0.7;
                             }
                         </style>                        
-                        <div id='c5' class='snap_carousel'></div>           
+                        <div id='c5'></div>           
                         <script>
                             $(function() {
                                 var $c = $('#c5').yajc().yajc('wings', {
@@ -433,8 +433,9 @@
                                 });
 
                                 $.getJSON('images/images.json', function(images) {
+                                    var total = images.length;
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + '</span></li>');
+                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + ' (' + (idx+1) + ' of ' + total + ')</span></li>');
                                     });
                                 });
                             });
@@ -449,7 +450,7 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js5"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c4&#39;).yajc().yajc(&#39;wings&#39;, {
+    var $c = $(&#39;#c5&#39;).yajc().yajc(&#39;wings&#39;, {
         style: &#39;circle&#39;,
         showOnHover: false,
         snap: true                                    
@@ -462,33 +463,32 @@
     });
 });</pre></div>
                         
-                      <div class="tab-pane" id="html5"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c4&#39; class=&#39;snap_carousel&#39;&gt;&lt;/div&gt;</pre></div>
-                        <div class="tab-pane" id="css5"><pre class='prettyprint linenums lang-css'>.snap_carousel { 
+                      <div class="tab-pane" id="html5"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c5&#39;&gt;&lt;/div&gt;</pre></div>
+                      <div class="tab-pane" id="css5"><pre class='prettyprint linenums lang-css'>#c5 { 
     padding: 5px; 
     background-color: black; 
     border-radius: 5px;
-    width: 750px;
+    width: 500px;
 } 
 
-.snap_carousel li { 
+#c5 li { 
     margin: 0 2px; 
     border: 1px solid #ccc;
-    width: 244px; 
-    height: 150px;
+    width: 496px; 
+    height: 300px;
     position: relative;
 } 
 
-.snap_carousel li img {
+#c5 li img {
     width: 100%; 
     height: 100%; 
 }
 
-.snap_carousel .title {
+#c5 .title {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 20px;
+    bottom: 0;;
     background-color: black;
     color: white;
     text-align: center;
@@ -502,40 +502,39 @@
 ============================================================-->   
                     <p>Another example of the <code>wings</code> plugin with step set to 3.</p>
                     <p>
-                        <style>
-                            .snap_carousel { 
-                                padding: 5px; 
-                                background-color: black; 
-                                border-radius: 5px;
-                                width: 750px;
-                            } 
+                            <style>
+                                #c6 { 
+                                    padding: 5px; 
+                                    background-color: black; 
+                                    border-radius: 5px;
+                                    width: 750px;
+                                } 
 
-                            .snap_carousel li { 
-                                margin: 0 2px; 
-                                border: 1px solid #ccc;
-                                width: 244px; 
-                                height: 150px;
-                                position: relative;
-                            } 
+                                #c6 li { 
+                                    margin: 0 2px; 
+                                    border: 1px solid #ccc;
+                                    width: 244px; 
+                                    height: 150px;
+                                    position: relative;
+                                } 
 
-                            .snap_carousel li img {
-                                width: 100%; 
-                                height: 100%; 
-                            }
+                                #c6 li img {
+                                    width: 100%; 
+                                    height: 100%; 
+                                }
 
-                            .snap_carousel .title {
-                                position: absolute;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
-                                height: 20px;
-                                background-color: black;
-                                color: white;
-                                text-align: center;
-                                opacity: 0.7;
-                            }
-                        </style>                        
-                        <div id='c6' class='snap_carousel'></div>           
+                                #c6 .title {
+                                    position: absolute;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;;
+                                    background-color: black;
+                                    color: white;
+                                    text-align: center;
+                                    opacity: 0.7;
+                                }
+                            </style>                        
+                        <div id='c6'></div>           
                         <script>
                             $(function() {
                                 var $c = $('#c6').yajc().yajc('wings', {
@@ -546,8 +545,9 @@
                                 });
 
                                 $.getJSON('images/images.json', function(images) {
+                                    var total = images.length;
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + '</span></li>');
+                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + ' (' + (idx+1) + ' of ' + total + ')</span></li>');
                                     });
                                 });
                             });
@@ -556,6 +556,8 @@
 
                     <ul class="nav nav-tabs">
                       <li class="active"><a href="#js6">JavaScript</a></li>
+                      <li><a href="#html6">HTML</a></li>
+                      <li><a href="#css6">CSS</a></li>
                     </ul>
                      
                     <div class="tab-content">
@@ -573,6 +575,37 @@
         });
     });
 });</pre></div>
+                    <div class="tab-pane" id="html6"><pre class='prettyprint linenums lang-html'>&lt;div id=&#39;c6&#39;&gt;&lt;/div&gt;</pre></div>
+                    <div class="tab-pane" id="css6"><pre class='prettyprint linenums lang-css'>#c6 { 
+    padding: 5px; 
+    background-color: black; 
+    border-radius: 5px;
+    width: 750px;
+} 
+
+#c6 li { 
+    margin: 0 2px; 
+    border: 1px solid #ccc;
+    width: 244px; 
+    height: 150px;
+    position: relative;
+} 
+
+#c6 li img {
+    width: 100%; 
+    height: 100%; 
+}
+
+#c6 .title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;;
+    background-color: black;
+    color: white;
+    text-align: center;
+    opacity: 0.7;
+}</pre></div>
                     </div>                    
                 </section>
                 <footer>

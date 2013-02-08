@@ -11,6 +11,7 @@
     width: 100%;
     z-index: 0;
 }
+
 .yajc.touch {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -53,6 +54,7 @@
     opacity: 0.6;
     filter: alpha(opacity=60);
 }
+
 .yajc .wing.on { 
     opacity: 1; 
     filter: alpha(opacity=100);
@@ -65,6 +67,7 @@
     width: 20px;
     display: table; 
 }
+
 .yajc .pad.forward { 
     left: auto;
     right: 0; 
@@ -88,11 +91,10 @@
     margin-top: -16px;
     top: 50%;
 }
+
 .yajc .circle.forward { 
     left: auto; 
     right: 2px; 
 }
 
-.yajc .circle p {
-    font-size: 34px;
-}
+.yajc .circle p { font-size: 34px; }

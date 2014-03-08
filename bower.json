@@ -23,7 +23,7 @@
   "ignore": [
     ".gitignore",
     "package.json",
-    "docs"
+    "docs",
     "images"
   ]
 }

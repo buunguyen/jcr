@@ -2,14 +2,14 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <title>yajc.js by buunguyen</title>
+        <title>jcr by buunguyen</title>
 
-        <!-- Required for yajc.js -->
+        <!-- Required for jcr -->
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
-        <script src='lib/yajc.js'></script>
-        <link rel='stylesheet' href='lib/yajc.css'>
+        <script src='lib/jcr.js'></script>
+        <link rel='stylesheet' href='lib/jcr.css'>
 
-        <!-- Styles and JS used for this page layout, not needed by yajc -->
+        <!-- Styles and JS used for this page layout, not needed by jcr -->
         <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.min.css'>
         <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap-responsive.min.css'>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min.js'></script>
@@ -42,17 +42,17 @@
     <body>
         <div class='container'>
             <div class='span11'>
-                <a href='https://github.com/buunguyen/yajc'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png' alt='Fork me on GitHub'></a>
+                <a href='https://github.com/buunguyen/jcr'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png' alt='Fork me on GitHub'></a>
                 <section>
 
 
 <!-- 
-* Why yajc.js
+* Why jcr
 ============================================================-->
-                    <h3>Why yajc.js</h3>
+                    <h3>Why jcr</h3>
                     <p>
                         Because the carousels I tried didn't do
-                        exactly what I needed and customizing them was so painful. After a couple of days trying to integrate 5 or 6 different carousels into a project I worked on without fruitful result, I gave up and coded the initial version of <span class="label label-important">yajc.js</span> in a few hours. Over the course of a few weeks, <span class="label label-important">yajc.js</span> has grown to have a lot more features than I initially needed and I thought it might benefit other people.
+                        exactly what I needed and customizing them was so painful. After a couple of days trying to integrate 5 or 6 different carousels into a project I worked on without fruitful result, I gave up and coded the initial version of <span class="label label-important">jcr</span> in a few hours. Over the course of a few weeks, <span class="label label-important">jcr</span> has grown to have a lot more features than I initially needed and I thought it might benefit other people.
                     </p>
                     <p>Feature highlights</p>
                     <ul> 
@@ -104,13 +104,13 @@
                         </style>
                         <script>
                             $(function() {
-                                var $c = $('#c1').yajc()
-                                    .yajc('wings') 
-                                    .yajc('selectOn', isTouchDevice() ? 'touchstart' : 'click');
+                                var $c = $('#c1').jcr()
+                                    .jcr('wings') 
+                                    .jcr('selectOn', isTouchDevice() ? 'touchstart' : 'click');
 
                                 $.getJSON('images/images.json', function(images) {
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                        $c.jcr('add', '<li><img src="' + img.url + '"></li>');
                                     });
                                 });
                             });
@@ -125,13 +125,13 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js1"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c1&#39;).yajc() 
-        .yajc(&#39;wings&#39;) 
-        .yajc(&#39;selectOn&#39;, isTouchDevice() ? &#39;touchstart&#39; : &#39;click&#39;);
+    var $c = $(&#39;#c1&#39;).jcr() 
+        .jcr(&#39;wings&#39;) 
+        .jcr(&#39;selectOn&#39;, isTouchDevice() ? &#39;touchstart&#39; : &#39;click&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+            $c.jcr(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
         });
     });
 });</pre></div>
@@ -168,17 +168,17 @@
 ============================================================-->
                     <h3>Tell me more</h3>
                     <h4>Core</h4>
-                    <p><span class="label label-important">yajc.js</span> has a small core, including the following initializer, methods and events:</p>
+                    <p><span class="label label-important">jcr</span> has a small core, including the following initializer, methods and events:</p>
                     <h5>Initializer</h5>
                     <ul class='methods'>
-                        <li><code>initializer ([options]):</code> invoke by calling <code>$obj.yajc({...})</code>. Options include:
+                        <li><code>initializer ([options]):</code> invoke by calling <code>$obj.jcr({...})</code>. Options include:
                             <ul>
                                 <li><code>addDuration:</code> the duration in ms to animate element addition</li>
                                 <li><code>removeDuration:</code> the duration in ms to animate element removal</li>
                                 <li><code>msPer100px:</code> the duration in ms to animate every 100 pixels, used to control sliding speed</li>
                                 <li><code>showEasing:</code> the name of the easing function used in <code>show()</code></li>
                                 <li><code>slideEasing:</code> the name of the easing function used in <code>slide()</code></li>   
-                                <li>You can set global defaults by overriding properties in <code>$.fn.yajc.defaults</code></li>                              
+                                <li>You can set global defaults by overriding properties in <code>$.fn.jcr.defaults</code></li>                              
                             </ul>
                         </li>             
                     </ul>
@@ -219,15 +219,15 @@
                     </ul>
                     <h5>Events</h5>
                     <ul class='methods'> 
-                        <li><code>yajc.added (DOM element)</code>: triggered after an element is added and add animation is completed.</li>
+                        <li><code>jcr.added (DOM element)</code>: triggered after an element is added and add animation is completed.</li>
 
-                        <li><code>yajc.removed (DOM element)</code>: triggered after an element is removed and remove animation is completed.</li>
+                        <li><code>jcr.removed (DOM element)</code>: triggered after an element is removed and remove animation is completed.</li>
 
-                        <li><code>yajc.shown (DOM element)</code>: triggered after an element is completely shown in view.</li>
+                        <li><code>jcr.shown (DOM element)</code>: triggered after an element is completely shown in view.</li>
 
-                        <li><code>yajc.slided (position)</code>: triggered after the carousel has slided.</li>
+                        <li><code>jcr.slided (position)</code>: triggered after the carousel has slided.</li>
 
-                        <li><code>yajc.refreshed</code>: triggered after the carousel has been refreshed.</li>
+                        <li><code>jcr.refreshed</code>: triggered after the carousel has been refreshed.</li>
                     </ul>
 
                     <p>You can write JavaScript code using these methos and events to control the behaviors of the carousel. You can also do it by coding plugins.</p>
@@ -236,7 +236,7 @@
 * Plugins
 ============================================================-->
                     <h4>Plugins</h4>
-                    <p>You can code <span class="label label-important">yajc.js</span> plugins by adding methods to <code>$.fn.yajc.plugins</code>. <span class="label label-important">yajc.js</span> comes with 4 built-in plugins: <code>wings</code>, <code>selectOn</code>, <code>swipe</code> and <code>hoverSlide</code>. All these plugins are used in different examples in this page.
+                    <p>You can code <span class="label label-important">jcr</span> plugins by adding methods to <code>$.fn.jcr.plugins</code>. <span class="label label-important">jcr</span> comes with 4 built-in plugins: <code>wings</code>, <code>selectOn</code>, <code>swipe</code> and <code>hoverSlide</code>. All these plugins are used in different examples in this page.
                     
 
                     <h3>More examples</h3> 
@@ -250,13 +250,13 @@
                         <div id='c2' class='carousel'></div>
                         <script>
                             $(function() {
-                                var $c = $('#c2').yajc()
-                                    .yajc('flick');
+                                var $c = $('#c2').jcr()
+                                    .jcr('flick');
 
                                 $.getJSON('images/images.json', function(images) {
                                     for (var i = 0; i < 50; i++) {
                                         var img = images[i % images.length];
-                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                        $c.jcr('add', '<li><img src="' + img.url + '"></li>');
                                     }
                                 });
                             });
@@ -269,13 +269,13 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js2"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c2&#39;).yajc()
-        .yajc(&#39;flick&#39;);
+    var $c = $(&#39;#c2&#39;).jcr()
+        .jcr(&#39;flick&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         for (var i = 0; i &lt; 50; i++) {
             var img = images[i % images.length];
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+            $c.jcr(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
         }
     });
 });</pre></div>
@@ -291,12 +291,12 @@
                         <div id='c3' class='carousel'></div>
                         <script>
                             $(function() {
-                                var $c = $('#c3').yajc()
-                                    .yajc('hoverSlide');
+                                var $c = $('#c3').jcr()
+                                    .jcr('hoverSlide');
 
                                 $.getJSON('images/images.json', function(images) {
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"></li>');
+                                        $c.jcr('add', '<li><img src="' + img.url + '"></li>');
                                     });
                                 });
                             });
@@ -309,12 +309,12 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js3"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c3&#39;).yajc()
-        .yajc(&#39;hoverSlide&#39;);
+    var $c = $(&#39;#c3&#39;).jcr()
+        .jcr(&#39;hoverSlide&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
+            $c.jcr(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;/li&gt;&#39;);
         });
     });
 });</pre></div>
@@ -330,14 +330,14 @@
                         <div id='c4' class='carousel'></div>
                         <script>
                             $(function() {
-                                var $c = $('#c4').yajc({
+                                var $c = $('#c4').jcr({
                                     addDuration: 100,
                                     removeDuration: 300
-                                }).yajc('wings');
+                                }).jcr('wings');
 
                                 $.getJSON('images/images.json', function(images) {
                                     (function add(index) {
-                                        $c.yajc('add', '<li><img src="' + images[index].url + '" style="width:' +  rand(100, 200) + 'px;"></li>',
+                                        $c.jcr('add', '<li><img src="' + images[index].url + '" style="width:' +  rand(100, 200) + 'px;"></li>',
 
                                             // add() is async when addDuration is not 0
                                             // so using callback to simulate sequential addition
@@ -345,7 +345,7 @@
                                                 if (++index < images.length) add(index); 
                                                 else {
                                                     $c.find('li').on(isTouchDevice() ? 'touchstart' : 'click', function() {
-                                                        $c.yajc('remove', $(this));
+                                                        $c.jcr('remove', $(this));
                                                     });
                                                 }   
                                             }
@@ -362,14 +362,14 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js4"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c4&#39;).yajc({
+    var $c = $(&#39;#c4&#39;).jcr({
         addDuration: 100,
         removeDuration: 300
-    }).yajc(&#39;wings&#39;);
+    }).jcr(&#39;wings&#39;);
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         (function add(index) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + images[index].url + &#39;&quot; style=&quot;width:&#39; +  rand(100, 200) + &#39;px;&quot;&gt;&lt;/li&gt;&#39;,
+            $c.jcr(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + images[index].url + &#39;&quot; style=&quot;width:&#39; +  rand(100, 200) + &#39;px;&quot;&gt;&lt;/li&gt;&#39;,
 
                 // add() is async when addDuration is not 0
                 // so using callback to simulate sequential addition
@@ -377,7 +377,7 @@
                     if (++index &lt; images.length) add(index); 
                     else {
                         $c.find(&#39;li&#39;).on(isTouchDevice() ? &#39;touchstart&#39; : &#39;click&#39;, function() {
-                            $c.yajc(&#39;remove&#39;, $(this));
+                            $c.jcr(&#39;remove&#39;, $(this));
                         });
                     }   
                 }
@@ -429,7 +429,7 @@
                         <div id='c5'></div>           
                         <script>
                             $(function() {
-                                var $c = $('#c5').yajc().yajc('wings', {
+                                var $c = $('#c5').jcr().jcr('wings', {
                                     style: 'circle',
                                     showOnHover: false,
                                     snap: true                                    
@@ -438,7 +438,7 @@
                                 $.getJSON('images/images.json', function(images) {
                                     var total = images.length;
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + ' (' + (idx+1) + ' of ' + total + ')</span></li>');
+                                        $c.jcr('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + ' (' + (idx+1) + ' of ' + total + ')</span></li>');
                                     });
                                 });
                             });
@@ -453,7 +453,7 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js5"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c5&#39;).yajc().yajc(&#39;wings&#39;, {
+    var $c = $(&#39;#c5&#39;).jcr().jcr(&#39;wings&#39;, {
         style: &#39;circle&#39;,
         showOnHover: false,
         snap: true                                    
@@ -461,7 +461,7 @@
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
+            $c.jcr(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
         });
     });
 });</pre></div>
@@ -540,7 +540,7 @@
                         <div id='c6'></div>           
                         <script>
                             $(function() {
-                                var $c = $('#c6').yajc().yajc('wings', {
+                                var $c = $('#c6').jcr().jcr('wings', {
                                     style: 'circle',
                                     showOnHover: false,
                                     snap: true,
@@ -550,7 +550,7 @@
                                 $.getJSON('images/images.json', function(images) {
                                     var total = images.length;
                                     $.each(images, function(idx, img) {
-                                        $c.yajc('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + ' (' + (idx+1) + ' of ' + total + ')</span></li>');
+                                        $c.jcr('add', '<li><img src="' + img.url + '"><span class="title">' + img.name + ' (' + (idx+1) + ' of ' + total + ')</span></li>');
                                     });
                                 });
                             });
@@ -565,7 +565,7 @@
                      
                     <div class="tab-content">
                       <div class="tab-pane active" id="js6"><pre class='prettyprint linenums lang-javascript'>$(function() {
-    var $c = $(&#39;#c6&#39;).yajc().yajc(&#39;wings&#39;, {
+    var $c = $(&#39;#c6&#39;).jcr().jcr(&#39;wings&#39;, {
         style: &#39;circle&#39;,
         showOnHover: false,
         snap: true,                               
@@ -574,7 +574,7 @@
 
     $.getJSON(&#39;images/images.json&#39;, function(images) {
         $.each(images, function(idx, img) {
-            $c.yajc(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
+            $c.jcr(&#39;add&#39;, &#39;&lt;li&gt;&lt;img src=&quot;&#39; + img.url + &#39;&quot;&gt;&lt;span class=&quot;title&quot;&gt;&#39; + img.name + &#39;&lt;/span&gt;&lt;/li&gt;&#39;);
         });
     });
 });</pre></div>
